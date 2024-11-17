@@ -12,11 +12,6 @@ class SpeciesViewModel: ObservableObject {
     @Published var species: [Species]
     
     init() {
-        species = [
-            Species(
-                title: "The Grays",
-                content: "Small, 3 - 4 foot aliens"
-            )
-        ]
+        species = []
     }
 }

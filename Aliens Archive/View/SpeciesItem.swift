@@ -13,8 +13,14 @@ struct SpeciesItem: View {
     var body: some View {
         VStack {
             Text(species.title.rendered)
+                .font(.title)
             Text(species.content.rendered)
+                .font(.caption)
         }
+        .padding()
+        .background(
+            Color.green.cornerRadius(10)
+        )
     }
 }
 

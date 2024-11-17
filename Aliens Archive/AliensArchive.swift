@@ -18,12 +18,12 @@ struct AliensArchive: App {
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
+        SpeciesItem(species:
+            Species(
+                title: "The Grays",
+                content: "Small, 3 - 4 foot aliens"
+            )
+        )
         .padding()
     }
 }
