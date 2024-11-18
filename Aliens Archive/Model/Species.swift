@@ -5,8 +5,10 @@
 //  Created by John Lane on 11/17/24.
 //
 
+import Foundation
+
 struct Species: Decodable, Identifiable {
-    let id: Int
+    let id: UUID
     let title: Rendered
     let content: Rendered
     let excerpt: Rendered
@@ -17,7 +19,7 @@ struct Species: Decodable, Identifiable {
         title: String,
         content: String
     ) {
-        id = 0
+        id = UUID()
         link = ""
         featured_media = 0
         self.title = Rendered(rendered: title)

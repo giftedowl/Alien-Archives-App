@@ -11,19 +11,7 @@ import SwiftUI
 struct AliensArchive: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SpeciesView()
         }
-    }
-}
-
-struct ContentView: View {
-    var body: some View {
-        SpeciesItem(species:
-            Species(
-                title: "The Grays",
-                content: "Small, 3 - 4 foot aliens"
-            )
-        )
-        .padding()
     }
 }
