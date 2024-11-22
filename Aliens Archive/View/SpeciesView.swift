@@ -9,7 +9,8 @@ import SwiftUI
 
 struct SpeciesView: View {
     
-    let viewModel = SpeciesViewModel()
+    @StateObject
+    private var viewModel = SpeciesViewModel()
     
     var body: some View {
         List(viewModel.species) { item in
