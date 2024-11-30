@@ -15,11 +15,22 @@ struct SpeciesView: View {
     var body: some View {
         ZStack {
             Theme.background.color.ignoresSafeArea()
-            List(viewModel.species) { item in
-                SpeciesItem(
-                    species: item
-                )
-                .listRowBackground(
+            NavigationView {
+                List(viewModel.species) { item in
+                    NavigationLink {
+                        SpeciesDetailView(
+                            species: item
+                        )
+                    } label: {
+                        SpeciesItem(
+                            species: item
+                        )
+                    }
+                    .listRowBackground(
+                        Theme.background.color
+                    )
+                }
+                .background(
                     Theme.background.color
                 )
             }
