@@ -16,7 +16,12 @@ class SpeciesViewModel: ObservableObject {
         species = []
         error = false
     
-        getAllSpecies(completion: { result in
+        getAllSpecies()
+    }
+    
+    func getAllSpecies() {
+        let service = Services()
+        service.fetchBy(type: .species, completion: { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let species):
@@ -26,31 +31,5 @@ class SpeciesViewModel: ObservableObject {
                 }
             }
         })
-    }
-    
-    func getAllSpecies(completion: @escaping (Result<[Species], Error>) -> Void) {
-        guard let url = URL(string: "https://alienarchive.flywheelsites.com/wp-json/wp/v2/species/") else {
-            return
-        }
-        let urlRequest = URLRequest(url: url)
-        
-        let task = URLSession.shared.dataTask (
-            with: urlRequest) { data , response, error in
-                if let error {
-                    completion(.failure(error))
-                }
-                guard let data else {
-                    completion(.failure( NSError(domain: "Bad data", code: -1)))
-                    return
-                }
-                let jsonDecoder = JSONDecoder()
-                do {
-                    let result = try jsonDecoder.decode([Species].self, from: data)
-                    completion(.success(result))
-                } catch(let error) {
-                    print("Error \(error)")
-                }
-            }
-        task.resume()
-    }
+    }    
 }

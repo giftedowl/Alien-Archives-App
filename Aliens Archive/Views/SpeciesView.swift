@@ -14,7 +14,8 @@ struct SpeciesView: View {
     
     var body: some View {
         ZStack {
-            Theme.background.color.ignoresSafeArea()
+            Theme.background.color
+                .ignoresSafeArea()
             NavigationView {
                 List(viewModel.species) { item in
                     NavigationLink {
@@ -33,6 +34,7 @@ struct SpeciesView: View {
                 .background(
                     Theme.background.color
                 )
+                .navigationTitle("Alien Species")
             }
         }
     }
