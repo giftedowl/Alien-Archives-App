@@ -14,6 +14,15 @@ struct Species: Decodable, Identifiable {
     let excerpt: Rendered
     let link: String
     let featured_media: Int
+    
+    init(title: String, content: String) {
+        id = 0
+        self.title = Rendered(rendered: title)
+        self.content = Rendered(rendered: content)
+        self.excerpt = Rendered(rendered: content)
+        self.link = ""
+        featured_media = 0
+    }
 
     struct Rendered: Decodable {
         let rendered: String

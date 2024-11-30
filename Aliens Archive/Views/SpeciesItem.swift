@@ -14,13 +14,23 @@ struct SpeciesItem: View {
         VStack {
             Text(species.title.rendered)
                 .font(.title)
+                .foregroundColor(Theme.text.color)
             Text(species.content.rendered)
                 .font(.caption)
+                .foregroundColor(Theme.text.color)
         }
         .padding()
         .background(
-            Color.green.cornerRadius(10)
+            Theme.primary.color.cornerRadius(10)
         )
     }
 }
 
+#Preview {
+    SpeciesItem(species:
+        Species(
+            title: "The Grays",
+            content: "Small, 3 - 4 foot aliens"
+        )
+    )
+}
