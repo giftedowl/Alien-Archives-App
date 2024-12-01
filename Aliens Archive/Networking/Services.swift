@@ -19,19 +19,20 @@ enum ServiceType {
             "species"
         }
     }
+    
+    var urlRequest: URLRequest {
+        let url = URL(
+            string: "https://alienarchive.flywheelsites.com/wp-json/wp/v2/\(path)"
+        )!
+        return URLRequest(url: url)
+    }
 }
 
 struct Services {
-    private let baseUrl = "https://alienarchive.flywheelsites.com/wp-json/wp/v2/"
-    
-    func fetchBy(type: ServiceType, completion: @escaping (Result<[Species], Error>) -> Void) {
-        guard let url = URL(string: "\(baseUrl)\(type.path)") else {
-            return
-        }
-        let urlRequest = URLRequest(url: url)
-        
-        let task = URLSession.shared.dataTask (
-            with: urlRequest) { data , response, error in
+
+    func fetchService<T: Decodable>(type: [T.Type], request: ServiceType, completion: @escaping (Result<[T], Error>) -> Void) async {
+        URLSession.shared.dataTask (
+            with: request.urlRequest) { data, response, error in
                 if let error {
                     completion(.failure(error))
                 }
@@ -39,14 +40,26 @@ struct Services {
                     completion(.failure( NSError(domain: "Bad data", code: -1)))
                     return
                 }
-                let jsonDecoder = JSONDecoder()
                 do {
-                    let result = try jsonDecoder.decode([Species].self, from: data)
+                    let result = try JSONDecoder().decode([T].self, from: data)
                     completion(.success(result))
                 } catch(let error) {
                     print("Error \(error)")
                 }
-            }
-        task.resume()
+        }.resume()
+    }
+    
+    func fetchData(type: ServiceType, completion: @escaping (Result<Data, Error>) -> Void) async {
+        URLSession.shared.dataTask (
+            with: type.urlRequest) { data, response, error in
+                if let error {
+                    completion(.failure(error))
+                }
+                guard let data else {
+                    completion(.failure( NSError(domain: "Bad data", code: -1)))
+                    return
+                }
+                completion(.success(data))
+        }.resume()
     }
 }

@@ -11,17 +11,19 @@ class SpeciesViewModel: ObservableObject {
     
     @Published var species: [Species]
     @Published var error: Bool = false
+    let service = Services()
 
     init() {
         species = []
         error = false
     
-        getAllSpecies()
+        Task {
+            await getAllSpecies()
+        }
     }
     
-    func getAllSpecies() {
-        let service = Services()
-        service.fetchBy(type: .species, completion: { result in
+    func getAllSpecies() async {
+        await service.fetchService(type: [Species.self], request: .species, completion: { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let species):
@@ -31,5 +33,6 @@ class SpeciesViewModel: ObservableObject {
                 }
             }
         })
-    }    
+    }
+    
 }
