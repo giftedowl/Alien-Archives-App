@@ -15,6 +15,8 @@ struct Species: Decodable, Identifiable {
     let link: String
     let featured_media: Int
     
+    var speciesMedia: SpeciesMedia?
+    
     init(title: String, content: String) {
         id = 0
         self.title = Rendered(rendered: title)
@@ -26,5 +28,9 @@ struct Species: Decodable, Identifiable {
 
     struct Rendered: Decodable {
         let rendered: String
+    }
+    
+    mutating func setMedia(media: SpeciesMedia) {
+        self.speciesMedia = media
     }
 }

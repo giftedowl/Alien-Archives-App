@@ -20,7 +20,7 @@ struct SpeciesView: View {
                 List(viewModel.species) { item in
                     NavigationLink {
                         SpeciesDetailView(
-                            species: item
+                            viewModel: SpeciesDetailViewModel(species: item)
                         )
                     } label: {
                         SpeciesItem(
@@ -40,6 +40,3 @@ struct SpeciesView: View {
     }
 }
 
-#Preview {
-    SpeciesView()
-}

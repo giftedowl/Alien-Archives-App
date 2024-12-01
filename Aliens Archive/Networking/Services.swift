@@ -48,6 +48,25 @@ struct Services {
                 }
         }.resume()
     }
+
+    func fetchService<T: Decodable>(type: T.Type, request: ServiceType, completion: @escaping (Result<T, Error>) -> Void) async {
+        URLSession.shared.dataTask (
+            with: request.urlRequest) { data, response, error in
+                if let error {
+                    completion(.failure(error))
+                }
+                guard let data else {
+                    completion(.failure( NSError(domain: "Bad data", code: -1)))
+                    return
+                }
+                do {
+                    let result = try JSONDecoder().decode(T.self, from: data)
+                    completion(.success(result))
+                } catch(let error) {
+                    print("Error \(error)")
+                }
+        }.resume()
+    }
     
     func fetchData(type: ServiceType, completion: @escaping (Result<Data, Error>) -> Void) async {
         URLSession.shared.dataTask (

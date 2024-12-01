@@ -26,11 +26,3 @@ struct SpeciesItem: View {
     }
 }
 
-#Preview {
-    SpeciesItem(species:
-        Species(
-            title: "The Grays",
-            content: "Small, 3 - 4 foot aliens"
-        )
-    )
-}

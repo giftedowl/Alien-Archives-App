@@ -9,14 +9,11 @@ import Foundation
 
 class SpeciesViewModel: ObservableObject {
     
-    @Published var species: [Species]
+    @Published var species: [Species] = []
     @Published var error: Bool = false
-    let service = Services()
+    private let service = Services()
 
     init() {
-        species = []
-        error = false
-    
         Task {
             await getAllSpecies()
         }

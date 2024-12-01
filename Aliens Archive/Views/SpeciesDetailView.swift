@@ -8,32 +8,29 @@
 import SwiftUI
 
 struct SpeciesDetailView: View {
-    var species: Species
+    var viewModel: SpeciesDetailViewModel
 
     var body: some View {
         ZStack {
             Theme.background.color
                 .ignoresSafeArea()
             VStack {
-                Text("Species: \(species.title.rendered)")
+                Text("Species: \(viewModel.species.title.rendered)")
                     .font(.title)
                     .foregroundColor(Theme.text.color)
                     .padding()
-                Text(species.content.rendered)
+                Text(viewModel.species.content.rendered)
                     .font(.caption)
                     .foregroundColor(Theme.text.color)
                     .padding()
                 Spacer()
             }
+            .onAppear {
+                Task {
+                    await viewModel.getSpeciesMedia()
+                }
+            }
         }
     }
 }
 
-#Preview {
-    SpeciesDetailView(
-        species: Species(
-            title: "The Grays",
-            content: "Small, 3 - 4 foot aliens"
-        )
-    )
-}
