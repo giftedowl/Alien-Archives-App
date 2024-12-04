@@ -15,11 +15,11 @@ class SpeciesViewModel: ObservableObject {
 
     init() {
         Task {
-            await getAllSpecies()
+            await fetchAllSpecies()
         }
     }
 
-    func getAllSpecies() async {
+    func fetchAllSpecies() async {
         await service.fetchService(type: [Species.self], request: .species, completion: { result in
             DispatchQueue.main.async {
                 switch result {

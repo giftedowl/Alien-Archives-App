@@ -8,21 +8,23 @@
 import Foundation
 
 enum ServiceType {
+    case data(media: SpeciesMedia)
     case media(id: String)
     case species
 
-    var path: String {
+    var urlRequest: URLRequest {
+        let baseUrl = "https://alienarchive.flywheelsites.com/wp-json/wp/v2/"
+        var urlString = ""
         switch self {
         case .media(let id):
-            "media/\(id)"
+            urlString = "\(baseUrl)media/\(id)"
         case .species:
-            "species"
+            urlString = "\(baseUrl)species"
+        case .data(let media):
+            urlString = media.media_details.sizes.medium.source_url
         }
-    }
-    
-    var urlRequest: URLRequest {
         let url = URL(
-            string: "https://alienarchive.flywheelsites.com/wp-json/wp/v2/\(path)"
+            string: urlString
         )!
         return URLRequest(url: url)
     }

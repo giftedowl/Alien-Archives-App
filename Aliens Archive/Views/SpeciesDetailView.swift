@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct SpeciesDetailView: View {
-    var viewModel: SpeciesDetailViewModel
+    @StateObject var viewModel: SpeciesDetailViewModel
 
     var body: some View {
         ZStack {
             Theme.background.color
                 .ignoresSafeArea()
             VStack {
+                if let image = viewModel.speciesImageData {
+                    Image(uiImage: image)
+                }
                 Text("Species: \(viewModel.species.title.rendered)")
                     .font(.title)
                     .foregroundColor(Theme.text.color)
@@ -27,7 +30,7 @@ struct SpeciesDetailView: View {
             }
             .onAppear {
                 Task {
-                    await viewModel.getSpeciesMedia()
+                    await viewModel.fetchSpeciesMedia()
                 }
             }
         }
