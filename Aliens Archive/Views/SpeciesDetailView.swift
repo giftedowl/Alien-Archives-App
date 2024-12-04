@@ -20,7 +20,7 @@ struct SpeciesDetailView: View {
                 }
                 Text("Species: \(viewModel.species.title.rendered)")
                     .font(.title)
-                    .foregroundColor(Theme.text.color)
+                    .foregroundColor(Theme.highlight.color)
                     .padding()
                 Text(viewModel.species.content.rendered)
                     .font(.caption)
