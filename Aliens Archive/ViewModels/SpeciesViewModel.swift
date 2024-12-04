@@ -18,7 +18,7 @@ class SpeciesViewModel: ObservableObject {
             await getAllSpecies()
         }
     }
-    
+
     func getAllSpecies() async {
         await service.fetchService(type: [Species.self], request: .species, completion: { result in
             DispatchQueue.main.async {

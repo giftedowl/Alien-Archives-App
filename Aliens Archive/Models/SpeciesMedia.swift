@@ -19,10 +19,10 @@ struct SpeciesMedia: Decodable {
 
     struct MediaSizes: Decodable {
         let medium: MediaImages
-//        let thumbnail: MediaImages
-//        let square: MediaImages
-//        let featured: MediaImages
-//        let full: MediaImages
+        let thumbnail: MediaImages
+        let square: MediaImages
+        let featured: MediaImages
+        let full: MediaImages
     }
 
     struct MediaImages: Decodable {
