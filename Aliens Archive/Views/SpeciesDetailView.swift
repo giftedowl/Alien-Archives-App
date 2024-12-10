@@ -22,7 +22,7 @@ struct SpeciesDetailView: View {
                     .font(.title)
                     .foregroundColor(Theme.highlight.color)
                     .padding()
-                Text(viewModel.species.content.rendered)
+                Text(viewModel.species.content.rendered.htmlDecoded)
                     .font(.caption)
                     .foregroundColor(Theme.text.color)
                     .padding()

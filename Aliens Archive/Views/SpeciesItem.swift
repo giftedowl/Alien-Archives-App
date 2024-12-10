@@ -15,7 +15,7 @@ struct SpeciesItem: View {
             Text(species.title.rendered)
                 .font(.title)
                 .foregroundColor(Theme.text.color)
-            Text(species.content.rendered)
+            Text(species.content.rendered.htmlDecoded)
                 .font(.caption)
                 .foregroundColor(Theme.text.color)
         }
