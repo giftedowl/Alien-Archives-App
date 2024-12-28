@@ -21,7 +21,15 @@ struct SpeciesItem: View {
         }
         .padding()
         .background(
-            Theme.primary.color.cornerRadius(10)
+            Theme
+                .primary
+                .color
+                .opacity(0.35)
+                .cornerRadius(10)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Theme.primary.color, lineWidth: 3)
         )
     }
 }
