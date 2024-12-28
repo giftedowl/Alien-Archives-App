@@ -11,7 +11,12 @@ import SwiftUI
 struct AliensArchive: App {
     var body: some Scene {
         WindowGroup {
-            SpeciesView()
+            ZStack {
+                Image("BackgroundImage")
+                    .resizable()
+                    .ignoresSafeArea()
+                SpeciesView()
+            }
         }
     }
 }
