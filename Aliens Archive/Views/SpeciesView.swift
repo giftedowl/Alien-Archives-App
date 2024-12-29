@@ -13,25 +13,21 @@ struct SpeciesView: View {
     private var viewModel = SpeciesViewModel()
 
     var body: some View {
-        ZStack {
-            Theme.background.color
-                .ignoresSafeArea()
-            NavigationView {
-                ScrollView {
-                    ForEach(viewModel.species) { item in
-                        NavigationLink {
-                            SpeciesDetailView(
-                                viewModel: SpeciesDetailViewModel(species: item)
-                            )
-                        } label: {
-                            SpeciesItem(
-                                species: item
-                            )
-                        }
+        NavigationView {
+            ScrollView {
+                ForEach(viewModel.species) { item in
+                    NavigationLink {
+                        SpeciesDetailView(
+                            viewModel: SpeciesDetailViewModel(species: item)
+                        )
+                    } label: {
+                        SpeciesItem(
+                            species: item
+                        )
                     }
                 }
-                .navigationTitle("Alien Species")
             }
+            .navigationTitle("Alien Species")
         }
     }
 }

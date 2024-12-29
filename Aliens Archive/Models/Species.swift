@@ -26,9 +26,6 @@ struct Species: Decodable, Identifiable {
         featured_media = 0
     }
 
-    struct Rendered: Decodable {
-        let rendered: String
-    }
     
     mutating func setMedia(media: SpeciesMedia) {
         self.speciesMedia = media
@@ -50,4 +47,8 @@ extension String {
         }
         return decodedString
     }
+}
+
+struct Rendered: Decodable {
+    let rendered: String
 }

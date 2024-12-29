@@ -15,7 +15,18 @@ struct AliensArchive: App {
                 Image("BackgroundImage")
                     .resizable()
                     .ignoresSafeArea()
-                SpeciesView()
+                TabView {
+                    SightingsView()
+                        .tabItem{
+                            Image(systemName: "magnifyingglass")
+                            Text("Sighthings")
+                        }
+                    SpeciesView()
+                        .tabItem{
+                            Image(systemName: "person")
+                            Text("Species")
+                        }
+                }
             }
         }
     }

@@ -11,6 +11,7 @@ enum ServiceType {
     case data(media: SpeciesMedia)
     case media(id: String)
     case species
+    case sighting
 
     var urlRequest: URLRequest {
         let baseUrl = "https://alienarchive.flywheelsites.com/wp-json/wp/v2/"
@@ -22,6 +23,8 @@ enum ServiceType {
             urlString = "\(baseUrl)species"
         case .data(let media):
             urlString = media.media_details.sizes.medium.source_url
+        case .sighting:
+            urlString = "\(baseUrl)sighting"
         }
         let url = URL(
             string: urlString
