@@ -6,15 +6,15 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct SightingsView: View {
     @StateObject
     private var viewModel = SightingsViewModel()
+
     var body: some View {
-        VStack {
-            ForEach(viewModel.sightings) { sighting in
-                Text(sighting.title.rendered)
-            }
+        Map(coordinateRegion: $viewModel.region, annotationItems: viewModel.sightings) { sighting in
+            MapPin(coordinate: sighting.coordinate)
         }
     }
 }

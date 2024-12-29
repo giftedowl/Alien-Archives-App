@@ -6,14 +6,21 @@
 //
 
 import Foundation
+import MapKit
 
 class SightingsViewModel: ObservableObject {
     
     @Published var sightings: [Sighting] = []
     @Published var error: Bool = false
+    @Published var region: MKCoordinateRegion
+
     private let service = Services()
 
     init() {
+        region = MKCoordinateRegion(
+            center: CLLocationCoordinate2D(latitude: 37.3541667, longitude: -121.9541667), // San Francisco, CA
+            span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+        )
         Task {
             await fetchAllSightings()
         }
@@ -25,7 +32,6 @@ class SightingsViewModel: ObservableObject {
                 switch result {
                 case .success(let sightings):
                     self.sightings = sightings
-                    print("sightings \(sightings)")
                 default:
                     self.error = true
                 }
