@@ -24,8 +24,25 @@ struct Sighting: Decodable, Identifiable {
         let city: String // "Santa Clara",
         let state: String //"CA",
         let country: String // "USA",
-        let shape: String //"Circle",
+        let shape: SightingShape //"Circle",
         let latitude: Double //37.3541667,
         let longitude: Double //-121.9541667
+    }
+}
+
+enum SightingShape: String, Decodable {
+    case Circle
+    case Cigar
+    case Unknown
+
+    var iconName: String {
+        switch self {
+        case .Circle: 
+            return "circle.fill"
+        case .Cigar: 
+            return "capsule.fill"
+        default:
+            return "questionmark.circle.fill"
+        }
     }
 }

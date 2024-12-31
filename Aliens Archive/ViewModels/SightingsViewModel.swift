@@ -19,7 +19,7 @@ class SightingsViewModel: ObservableObject {
     init() {
         region = MKCoordinateRegion(
             center: CLLocationCoordinate2D(latitude: 37.3541667, longitude: -121.9541667), // San Francisco, CA
-            span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+            span: MKCoordinateSpan(latitudeDelta: 0.3, longitudeDelta: 0.3)
         )
         Task {
             await fetchAllSightings()

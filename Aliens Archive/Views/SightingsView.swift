@@ -13,11 +13,36 @@ struct SightingsView: View {
     private var viewModel = SightingsViewModel()
 
     var body: some View {
-        Map(coordinateRegion: $viewModel.region, annotationItems: viewModel.sightings) { sighting in
-            MapPin(coordinate: sighting.coordinate)
+        VStack {
+            List(viewModel.sightings) { sighting in
+                SightingsListItemView(sighting: sighting)
+            }
+            Map(coordinateRegion: $viewModel.region,
+                annotationItems: viewModel.sightings
+            ) { sighting in
+                MapAnnotation(coordinate: sighting.coordinate) {
+                    Image(systemName: sighting.acf.shape.iconName)
+                        .foregroundStyle( Theme.highlight.color )
+                }
+            }
         }
     }
 }
+
+struct SightingsListItemView: View {
+    let sighting: Sighting
+
+    var body: some View {
+        VStack {
+            Text(sighting.title.rendered)
+                .font(.title)
+            Text("\(sighting.acf.city), \(sighting.acf.state)")
+                .font(.subheadline)
+                .bold()
+        }
+    }
+}
+
 
 //#Preview {
 //    SightingsView()
