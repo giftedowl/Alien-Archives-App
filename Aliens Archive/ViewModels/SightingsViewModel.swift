@@ -26,12 +26,22 @@ class SightingsViewModel: ObservableObject {
         }
     }
 
+    func updateMapRegion(sighting: Sighting) {
+        region.center = CLLocationCoordinate2D(
+            latitude: sighting.acf.latitude,
+            longitude: sighting.acf.longitude
+        )
+    }
+
     func fetchAllSightings() async {
         await service.fetchService(type: [Sighting.self], request: .sighting, completion: { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let sightings):
                     self.sightings = sightings
+                    if let firstSighting = sightings.first {
+                        self.updateMapRegion(sighting: firstSighting)
+                    }
                 default:
                     self.error = true
                 }

@@ -33,6 +33,7 @@ struct Sighting: Decodable, Identifiable {
 enum SightingShape: String, Decodable {
     case Circle
     case Cigar
+    case Rectangle
     case Unknown
 
     var iconName: String {
@@ -41,6 +42,8 @@ enum SightingShape: String, Decodable {
             return "circle.fill"
         case .Cigar: 
             return "capsule.fill"
+        case .Rectangle:
+            return "rectangle.fill"
         default:
             return "questionmark.circle.fill"
         }

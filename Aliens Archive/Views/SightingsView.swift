@@ -16,6 +16,9 @@ struct SightingsView: View {
         VStack {
             List(viewModel.sightings) { sighting in
                 SightingsListItemView(sighting: sighting)
+                    .onTapGesture {
+                        viewModel.updateMapRegion(sighting: sighting)
+                    }
             }
             Map(coordinateRegion: $viewModel.region,
                 annotationItems: viewModel.sightings
@@ -36,6 +39,7 @@ struct SightingsListItemView: View {
         VStack {
             Text(sighting.title.rendered)
                 .font(.title)
+                .lineLimit(2)
             Text("\(sighting.acf.city), \(sighting.acf.state)")
                 .font(.subheadline)
                 .bold()
