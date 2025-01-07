@@ -22,7 +22,7 @@ struct SpeciesDetailView: View {
                     .font(.title)
                     .foregroundColor(Theme.highlight.color)
                     .padding()
-                Text(viewModel.species.content.rendered.htmlDecoded)
+                Text(viewModel.species.content.rendered)
                     .font(.caption)
                     .foregroundColor(Theme.text.color)
                     .padding()
@@ -36,4 +36,3 @@ struct SpeciesDetailView: View {
         }
     }
 }
-

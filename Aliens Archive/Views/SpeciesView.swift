@@ -14,17 +14,15 @@ struct SpeciesView: View {
 
     var body: some View {
         NavigationView {
-            ScrollView {
-                ForEach(viewModel.species) { item in
-                    NavigationLink {
-                        SpeciesDetailView(
-                            viewModel: SpeciesDetailViewModel(species: item)
-                        )
-                    } label: {
-                        SpeciesItem(
-                            species: item
-                        )
-                    }
+            List(viewModel.species) { item in
+                NavigationLink {
+                    SpeciesDetailView(
+                        viewModel: SpeciesDetailViewModel(species: item)
+                    )
+                } label: {
+                    SpeciesItem(
+                        species: item
+                    )
                 }
             }
             .navigationTitle("Alien Species")

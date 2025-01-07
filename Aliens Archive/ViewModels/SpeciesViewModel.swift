@@ -7,8 +7,8 @@
 
 import Foundation
 
-class SpeciesViewModel: ObservableObject {
-    
+final class SpeciesViewModel: ObservableObject {
+
     @Published var species: [Species] = []
     @Published var error: Bool = false
     private let service = Services()
@@ -19,16 +19,14 @@ class SpeciesViewModel: ObservableObject {
         }
     }
 
+    @MainActor
     func fetchAllSpecies() async {
-        await service.fetchService(type: [Species.self], request: .species, completion: { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let species):
-                    self.species = species
-                default:
-                    self.error = true
-                }
-            }
-        })
+        do {
+            species = try await service.fetchServiceArray(
+                    type: [Species.self],
+                    request: .species
+            )
+        } catch {
+        }
     }
 }

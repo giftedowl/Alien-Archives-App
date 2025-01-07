@@ -35,55 +35,36 @@ enum ServiceType {
 
 struct Services {
 
-    func fetchService<T: Decodable>(type: [T.Type], request: ServiceType, completion: @escaping (Result<[T], Error>) -> Void) async {
-        URLSession.shared.dataTask (
-            with: request.urlRequest) { data, response, error in
-                if let error {
-                    completion(.failure(error))
-                }
-                guard let data else {
-                    completion(.failure( NSError(domain: "Bad data", code: -1)))
-                    return
-                }
-                do {
-                    let result = try JSONDecoder().decode([T].self, from: data)
-                    completion(.success(result))
-                } catch(let error) {
-                    print("Error \(error)")
-                }
-        }.resume()
+    func fetchServiceArray<T: Decodable>(
+        type: [T.Type],
+        request: ServiceType
+    ) async throws -> [T] {
+        let data = try await run(request.urlRequest)
+        return try JSONDecoder().decode([T].self, from: data)
     }
 
-    func fetchService<T: Decodable>(type: T.Type, request: ServiceType, completion: @escaping (Result<T, Error>) -> Void) async {
-        URLSession.shared.dataTask (
-            with: request.urlRequest) { data, response, error in
-                if let error {
-                    completion(.failure(error))
-                }
-                guard let data else {
-                    completion(.failure( NSError(domain: "Bad data", code: -1)))
-                    return
-                }
-                do {
-                    let result = try JSONDecoder().decode(T.self, from: data)
-                    completion(.success(result))
-                } catch(let error) {
-                    print("Error \(error)")
-                }
-        }.resume()
+    func fetchService<T: Decodable>(
+        type: T.Type,
+        request: ServiceType
+    ) async throws -> T {
+        let data = try await run(request.urlRequest)
+        return try JSONDecoder().decode(T.self, from: data)
     }
-    
-    func fetchData(type: ServiceType, completion: @escaping (Result<Data, Error>) -> Void) async {
-        URLSession.shared.dataTask (
-            with: type.urlRequest) { data, response, error in
-                if let error {
-                    completion(.failure(error))
-                }
-                guard let data else {
-                    completion(.failure( NSError(domain: "Bad data", code: -1)))
-                    return
-                }
-                completion(.success(data))
-        }.resume()
+
+    func fetchData(
+        request: ServiceType
+    ) async throws -> Data {
+        return try await run(request.urlRequest)
+    }
+
+    private func run(_ urlRequest: URLRequest) async throws -> Data {
+        let (data, response) = try await URLSession.shared.data(
+            for: urlRequest
+        )
+        guard let httpResponse = response as? HTTPURLResponse,
+            httpResponse.statusCode == 200 else {
+            throw URLError(.badServerResponse)
+        }
+        return data
     }
 }

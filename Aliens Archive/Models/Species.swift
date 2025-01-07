@@ -14,7 +14,8 @@ struct Species: Decodable, Identifiable {
     let excerpt: Rendered
     let link: String
     let featured_media: Int
-    
+    var acf: CustomFields?
+
     var speciesMedia: SpeciesMedia?
 
     init(title: String, content: String) {
@@ -28,6 +29,21 @@ struct Species: Decodable, Identifiable {
 
     mutating func setMedia(media: SpeciesMedia) {
         self.speciesMedia = media
+    }
+
+    struct CustomFields: Decodable {
+        let communication: String
+        let movement: String
+        let body_shape: String
+        let size: String
+        let skin: String
+        let limbs: String
+        let head: String
+        let eyes: String
+        let nose: String
+        let mouth: String
+        let ears: String
+        let hands_feet: String
     }
 }
 
