@@ -17,16 +17,31 @@ struct SightingsView: View {
             List(viewModel.sightings) { sighting in
                 SightingsListItemView(sighting: sighting)
                     .onTapGesture {
-                        viewModel.updateMapRegion(sighting: sighting)
+                        Task {
+                            viewModel.updateMapRegion(sighting.coordinate)
+                        }
                     }
             }
-            Map(coordinateRegion: $viewModel.region,
-                annotationItems: viewModel.sightings
-            ) { sighting in
-                MapAnnotation(coordinate: sighting.coordinate) {
-                    Image(systemName: sighting.acf.shape.iconName)
-                        .foregroundStyle( Theme.highlight.color )
+            ZStack {
+                Map(coordinateRegion: $viewModel.region,
+                    annotationItems: viewModel.sightings
+                ) { sighting in
+                    MapAnnotation(coordinate: sighting.coordinate) {
+                        Image(systemName: sighting.acf.shape.iconName)
+                            .foregroundStyle( Theme.highlight.color )
+                    }
                 }
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            viewModel.attemptCurrentLocation()
+                        }, label: {
+                            Image("location.fill")
+                        })
+                    }.padding()
+                }.padding()
             }
         }
     }

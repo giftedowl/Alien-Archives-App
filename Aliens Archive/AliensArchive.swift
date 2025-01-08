@@ -16,15 +16,15 @@ struct AliensArchive: App {
                     .resizable()
                     .ignoresSafeArea()
                 TabView {
-                    SightingsView()
-                        .tabItem{
-                            Image(systemName: "magnifyingglass")
-                            Text("Sighthings")
-                        }
                     SpeciesView()
                         .tabItem{
                             Image(systemName: "person")
                             Text("Species")
+                        }
+                    SightingsView()
+                        .tabItem{
+                            Image(systemName: "magnifyingglass")
+                            Text("Sighthings")
                         }
                 }
             }

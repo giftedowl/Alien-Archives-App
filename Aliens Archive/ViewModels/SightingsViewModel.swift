@@ -15,10 +15,11 @@ class SightingsViewModel: ObservableObject {
     @Published var region: MKCoordinateRegion
 
     private let service = Services()
+    private let locationManager = LocationManager()
 
     init() {
         region = MKCoordinateRegion(
-            center: CLLocationCoordinate2D(latitude: 37.3541667, longitude: -121.9541667), // San Francisco, CA
+            center: CLLocationCoordinate2D(latitude: 0, longitude: 0),
             span: MKCoordinateSpan(latitudeDelta: 0.3, longitudeDelta: 0.3)
         )
         Task {
@@ -26,26 +27,30 @@ class SightingsViewModel: ObservableObject {
         }
     }
 
-    func updateMapRegion(sighting: Sighting) {
-        region.center = CLLocationCoordinate2D(
-            latitude: sighting.acf.latitude,
-            longitude: sighting.acf.longitude
-        )
+    func updateMapRegion(_ coordinate: CLLocationCoordinate2D) {
+        region.center = coordinate
     }
 
+    func attemptCurrentLocation() {
+        if let userLocation = locationManager.userLocation {
+            updateMapRegion( userLocation )
+        } else {
+            locationManager.requestWhenInUseAuthorization()
+        }
+    }
+
+    @MainActor
     func fetchAllSightings() async {
-        await service.fetchService(type: [Sighting.self], request: .sighting, completion: { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let sightings):
-                    self.sightings = sightings
-                    if let firstSighting = sightings.first {
-                        self.updateMapRegion(sighting: firstSighting)
-                    }
-                default:
-                    self.error = true
-                }
+        do {
+            sightings = try await service.fetchServiceArray(
+                    type: [Sighting.self],
+                    request: .sighting
+            )
+            if let firstSighting = sightings.first {
+                updateMapRegion(firstSighting.coordinate)
             }
-        })
+        } catch {
+            print("error")
+        }
     }
 }
