@@ -17,13 +17,12 @@ struct SpeciesDetailView: View {
             VStack {
                 if let image = viewModel.speciesImageData {
                     Image(uiImage: image)
+                        .cornerRadius(20)
                 }
-                Text("Species: \(viewModel.species.title)")
+                Text(viewModel.species.title)
                     .font(.title)
-                    .foregroundColor(Theme.highlight.color)
-                    .padding()
+                    .foregroundColor(Theme.primary.color)
                 Text(viewModel.species.content)
-                    .font(.caption)
                     .foregroundColor(Theme.text.color)
                     .padding()
                 Spacer()

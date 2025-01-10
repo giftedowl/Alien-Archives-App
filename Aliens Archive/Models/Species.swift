@@ -14,7 +14,7 @@ struct Species: Decodable, Identifiable {
     let excerpt: String
     let link: String
     let featuredMedia: Int
-    let characteristic: Characteristics
+    let characteristics: Characteristics
 
     var speciesMedia: SpeciesMedia?
 
@@ -30,8 +30,8 @@ struct Species: Decodable, Identifiable {
         self.link = try container.decode(String.self, forKey: .link)
         self.featuredMedia = try container
             .decode(Int.self, forKey: .featuredMedia)
-        self.characteristic = try container
-            .decode(Species.Characteristics.self, forKey: .characteristic)
+        self.characteristics = try container
+            .decode(Species.Characteristics.self, forKey: .characteristics)
     }
 
     enum CodingKeys: String, CodingKey, Decodable {
@@ -41,14 +41,16 @@ struct Species: Decodable, Identifiable {
         case excerpt
         case link
         case featuredMedia = "featured_media"
-        case characteristic = "acf"
+        case characteristics = "acf"
     }
 
     mutating func setMedia(media: SpeciesMedia) {
         self.speciesMedia = media
     }
 
-    struct Characteristics: Decodable {
+    struct Characteristics: Decodable, CaseIterable {
+        static var allCases: [Species.Characteristics]
+
         let communication: String
         let movement: String
         let bodyShape: String

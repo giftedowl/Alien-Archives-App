@@ -17,13 +17,16 @@ struct SpeciesView: View {
             List(viewModel.species) { item in
                 NavigationLink {
                     SpeciesDetailView(
-                        viewModel: SpeciesDetailViewModel(species: item)
+                        viewModel: SpeciesDetailViewModel(
+                            species: item
+                        )
                     )
                 } label: {
                     SpeciesItem(
                         species: item
                     )
                 }
+                .listRowBackground(Theme.background.color)
             }
             .navigationTitle("Alien Species")
         }
