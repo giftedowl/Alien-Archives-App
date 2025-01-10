@@ -24,7 +24,7 @@ struct Species: Decodable, Identifiable {
         let titleRendered = try container.decode(Rendered.self, forKey: .title)
         self.title = titleRendered.rendered
         let contentRendered = try container.decode(Rendered.self, forKey: .content)
-        self.content = contentRendered.rendered
+        self.content = contentRendered.rendered.htmlDecoded
         let excerptRendered = try container.decode(Rendered.self, forKey: .excerpt)
         self.excerpt = excerptRendered.rendered.htmlDecoded
         self.link = try container.decode(String.self, forKey: .link)
@@ -48,9 +48,7 @@ struct Species: Decodable, Identifiable {
         self.speciesMedia = media
     }
 
-    struct Characteristics: Decodable, CaseIterable {
-        static var allCases: [Species.Characteristics]
-
+    struct Characteristics: Decodable {
         let communication: String
         let movement: String
         let bodyShape: String
@@ -81,23 +79,3 @@ struct Species: Decodable, Identifiable {
     }
 }
 
-extension String {
-    var htmlDecoded: String {
-        var decodedString = self
-        if let data = self.data(using: .utf8) {
-            let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [
-                .documentType: NSAttributedString.DocumentType.html,
-                .characterEncoding: String.Encoding.utf8.rawValue
-            ]
-            do {
-                let attributedString = try NSAttributedString(data: data, options: options, documentAttributes: nil)
-                decodedString = attributedString.string
-            } catch {}
-        }
-        return decodedString
-    }
-}
-
-struct Rendered: Decodable {
-    let rendered: String
-}
