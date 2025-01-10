@@ -12,10 +12,10 @@ struct SpeciesItem: View {
     
     var body: some View {
         VStack {
-            Text(species.title.rendered)
+            Text(species.title)
                 .font(.title)
                 .foregroundColor(Theme.text.color)
-            Text(species.content.rendered)
+            Text(species.excerpt)
                 .font(.caption)
                 .foregroundColor(Theme.text.color)
         }

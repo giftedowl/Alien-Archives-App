@@ -18,11 +18,11 @@ struct SpeciesDetailView: View {
                 if let image = viewModel.speciesImageData {
                     Image(uiImage: image)
                 }
-                Text("Species: \(viewModel.species.title.rendered)")
+                Text("Species: \(viewModel.species.title)")
                     .font(.title)
                     .foregroundColor(Theme.highlight.color)
                     .padding()
-                Text(viewModel.species.content.rendered)
+                Text(viewModel.species.content)
                     .font(.caption)
                     .foregroundColor(Theme.text.color)
                     .padding()

@@ -26,7 +26,7 @@ class SpeciesDetailViewModel: ObservableObject {
         do {
             speciesMedia = try await service.fetchService(
                 type: SpeciesMedia.self,
-                request: .media(id: species.featured_media.description)
+                request: .media(id: species.featuredMedia.description)
             )
             await fetchSpeciesData()
         } catch {
