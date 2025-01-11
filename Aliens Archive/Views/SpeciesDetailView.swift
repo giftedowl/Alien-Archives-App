@@ -12,20 +12,46 @@ struct SpeciesDetailView: View {
 
     var body: some View {
         ZStack {
-            Theme.background.color
+            Image("BackgroundImage")
+                .resizable()
                 .ignoresSafeArea()
             VStack {
                 if let image = viewModel.speciesImageData {
                     Image(uiImage: image)
                         .cornerRadius(20)
                 }
-                Text(viewModel.species.title)
-                    .font(.title)
-                    .foregroundColor(Theme.primary.color)
-                Text(viewModel.species.content)
-                    .foregroundColor(Theme.text.color)
+                ScrollView {
+                    VStack {
+                        Text(viewModel.species.title)
+                            .font(.title)
+                            .foregroundColor(Theme.primary.color)
+                        Text(viewModel.species.content)
+                            .foregroundColor(Theme.text.color)
+                            .padding()
+                    }
                     .padding()
-                Spacer()
+                    .background(
+                        Theme.background.color.opacity(0.65)
+                    )
+                    .cornerRadius(10)
+                    VStack(alignment: .leading) {
+                        ForEach(
+                            Characteristics.CodingKeys.allCases,
+                            id:\.self
+                        ) { attribute in
+                            let value = attribute.from(viewModel.species.characteristics)
+                            if value == "" {
+                                EmptyView()
+                            } else {
+                                Text("\(attribute.label): \(value)")
+                                    .padding(20)
+                                    .background(Theme.highlight.color.opacity(0.8))
+                                    .foregroundStyle(Theme.primary.color)
+                                    .cornerRadius(10)
+                            }
+                        }
+                    }
+                }
             }
             .onAppear {
                 Task {

@@ -31,7 +31,8 @@ struct Species: Decodable, Identifiable {
         self.featuredMedia = try container
             .decode(Int.self, forKey: .featuredMedia)
         self.characteristics = try container
-            .decode(Species.Characteristics.self, forKey: .characteristics)
+            .decode(Characteristics.self, forKey: .characteristics)
+        print("Characteristics \(self.characteristics)")
     }
 
     enum CodingKeys: String, CodingKey, Decodable {
@@ -46,36 +47,6 @@ struct Species: Decodable, Identifiable {
 
     mutating func setMedia(media: SpeciesMedia) {
         self.speciesMedia = media
-    }
-
-    struct Characteristics: Decodable {
-        let communication: String
-        let movement: String
-        let bodyShape: String
-        let size: String
-        let skin: String
-        let limbs: String
-        let head: String
-        let eyes: String
-        let nose: String
-        let mouth: String
-        let ears: String
-        let handsFeet: String
-
-        enum CodingKeys: String, CodingKey, Decodable {
-            case communication
-            case movement
-            case bodyShape = "body_shape"
-            case size
-            case skin
-            case limbs
-            case head
-            case eyes
-            case nose
-            case mouth
-            case ears
-            case handsFeet = "hands_feet"
-        }
     }
 }
 
