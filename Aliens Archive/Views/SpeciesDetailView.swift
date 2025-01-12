@@ -30,14 +30,13 @@ struct SpeciesDetailView: View {
                             Text(viewModel.species.content)
                                 .foregroundColor(Theme.text.color)
                                 .padding()
-                            PromptView(species: viewModel.species)
                         }
-                        .padding()
                         .background(
                             Theme.background.color.opacity(0.65)
                         )
                         .cornerRadius(10)
                     }
+                    .padding()
                     .tabItem {
                         Label {
                             Text("Info")
@@ -55,6 +54,7 @@ struct SpeciesDetailView: View {
                             }
                         }
                 }
+                .background(Color.clear)
             }
             .onAppear {
                 Task {

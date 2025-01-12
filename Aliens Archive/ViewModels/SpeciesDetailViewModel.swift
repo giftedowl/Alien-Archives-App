@@ -19,7 +19,9 @@ class SpeciesDetailViewModel: ObservableObject {
     private let service = Services()
     
     init(species: Species) {
-        self.species = species        
+        self.species = species
+        print("Prompt: \(species.prompt)")
+        self.messages = [ChatMessage(content: species.prompt, role: .system)]
     }
 
     @MainActor
@@ -52,21 +54,20 @@ class SpeciesDetailViewModel: ObservableObject {
     }
 
     @MainActor
-    func fetchAlienResponse(with: Species, message: String) async {
+    func fetchAlienResponse(with species: Species) async {
         do {
             let chatResponse = try await service.fetchService(
                 type: ChatGPTResponse.self,
-                request: .message(context: "You are an alien", message: message)
+                request: .message(request: ChatGPTRequest(messages: messages))
             )
             guard let response = chatResponse.choices.first?.message.content else {
-                messages.append(ChatMessage.error)
+                print("ChatGPT Error: \(error)")
                 return
             }
             messages.append(
-                ChatMessage(text: response, isUser: false)
+                ChatMessage(content: response, role: .assistant)
             )
         } catch let error {
-            messages.append(ChatMessage.error)
             print("ChatGPT Error: \(error)")
         }
     }

@@ -26,8 +26,9 @@ struct Species: Decodable, Identifiable, Promptable {
     let featuredMedia: Int
 
     let physical: Physical
-    let culture: Cultural
+    let abilities: Abilities
     let personality: Personality
+    let culture: Cultural
 
     var speciesMedia: SpeciesMedia?
 
@@ -44,10 +45,12 @@ struct Species: Decodable, Identifiable, Promptable {
 
         self.physical = try container
             .decode(Physical.self, forKey: .acf)
-        self.culture = try container
-            .decode(Cultural.self, forKey: .acf)
+        self.abilities = try container
+            .decode(Abilities.self, forKey: .acf)
         self.personality = try container
             .decode(Personality.self, forKey: .acf)
+        self.culture = try container
+            .decode(Cultural.self, forKey: .acf)
 
         self.featuredMedia = try container
             .decode(Int.self, forKey: .featuredMedia)

@@ -7,12 +7,14 @@
 
 import Foundation
 
-struct ChatMessage: Identifiable {
+struct ChatMessage: Codable, Identifiable, Equatable {
     let id = UUID()
-    let text: String
-    let isUser: Bool
+    let content: String
+    let role: Role
 
-    static var error: ChatMessage {
-        .init(text: "Sorry, I don't understand.", isUser: false)
+    enum Role: String, Codable {
+        case system
+        case user
+        case assistant
     }
 }

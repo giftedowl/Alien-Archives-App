@@ -15,43 +15,41 @@ struct ChatView: View {
     @State private var userInput: String = ""
 
     var body: some View {
-        VStack {
-            Text("Chat with me")
-                .font(.subheadline)
-                .padding()
-            ScrollView {
-                ForEach(viewModel.messages) { message in
-                    HStack {
-                        if message.isUser {
-                            Spacer()
-                            Text(message.text)
-                                .padding()
-                                .background(Theme.background.color.opacity(0.7))
-                                .cornerRadius(10)
-                                .foregroundColor(Theme.text.color)
-                        } else {
-                            Text(message.text)
-                                .padding()
-                                .background(Theme.background.color.opacity(0.3))
-                                .cornerRadius(10)
-                                .foregroundColor(Theme.secondary.color)
-                            Spacer()
+        ZStack {
+            Theme.background.color
+            VStack {
+                Text("Ask Me Anything")
+                    .font(.headline)
+                    .foregroundStyle(Theme.primary.color)
+                    .padding()
+                ScrollViewReader { scrollViewProxy in
+                    ScrollView {
+                        ForEach(viewModel.messages) { message in
+                            ChatMessageView(message: message)
+                                .padding(.horizontal)
                         }
                     }
-                    .padding(.horizontal)
+                    .padding()
+                    .onChange(of: viewModel.messages) { _ in
+                        if let lastMessage = viewModel.messages.last {
+                            scrollViewProxy
+                                .scrollTo(lastMessage.id, anchor: .bottom)
+                        }
+                    }
                 }
+
+                HStack {
+                    TextField("Type your message", text: $userInput)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    Button(action: sendMessage) {
+                        Text("Send")
+                    }
+                    .padding()
+                }
+                .padding()
             }
             .padding()
 
-            HStack {
-                TextField("Type your message", text: $userInput)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                Button(action: sendMessage) {
-                    Text("Send")
-                }
-                .padding()
-            }
-            .padding()
         }
     }
 
@@ -60,15 +58,14 @@ struct ChatView: View {
             return
         }
 
-        let userMessage = ChatMessage(text: userInput, isUser: true)
+        let userMessage = ChatMessage(content: userInput, role: .user)
         viewModel.messages.append(userMessage)
         userInput = ""
 
         Task {
             await viewModel
                 .fetchAlienResponse(
-                    with: viewModel.species,
-                    message: userMessage.text
+                    with: viewModel.species
                 )
         }
     }

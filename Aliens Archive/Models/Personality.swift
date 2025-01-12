@@ -6,17 +6,20 @@
 //
 
 struct Personality: Decodable, Promptable {
-//    let temperament: String
+    let temperament: String
     let humor: String
     let intelligence: String
+    let emotional: String
 
     var prompt: String {
         return Traits.reduceTraits(for: self)
     }
 
     enum Traits: Traitable {
+        case temperament
         case humor
         case intelligence
+        case emotional
 
         static func reduceTraits(for item: Personality) -> String {
             return Traits.allCases.reduce("") { result, trait in
@@ -30,10 +33,14 @@ struct Personality: Decodable, Promptable {
 
         func value(of item: Personality) -> String {
             switch self {
+            case .temperament:
+                return item.temperament
             case .humor:
                 return item.humor
             case .intelligence:
                 return item.intelligence
+            case .emotional:
+                return item.emotional
             }
         }
 
@@ -43,10 +50,14 @@ struct Personality: Decodable, Promptable {
                 return ""
             }
             switch self {
+            case .temperament:
+                return "your temperament is \(value)"
             case .humor:
-                return "humor style is \(value)"
+                return "your humor style is \(value)"
             case .intelligence:
-                return "intelligence level is \(value)"
+                return "you are intellectually \(value)"
+            case .emotional:
+                return "you are emotionally \(value)"
             }
         }
     }

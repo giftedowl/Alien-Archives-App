@@ -55,15 +55,15 @@ struct Cultural: Decodable, Promptable {
             }
             switch self {
             case .planet:
-                return "From the planet \(value)"
+                return "you are from the planet \(value)"
             case .environment:
-                return "planet environment is \(value)"
+                return "your home planet environment is \(value)"
             case .language:
-                return "language is \(value)"
+                return "your language is \(value)"
             case .society:
-                return "society is \(value)"
+                return "your society is based on \(value)"
             case .religion:
-                return "religion is \(value)"
+                return "you have religion or spirual beliefs around \(value)"
             }
         }
     }

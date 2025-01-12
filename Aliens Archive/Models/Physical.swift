@@ -5,6 +5,7 @@
 //  Created by John Lane on 1/11/25.
 //
 
+
 struct Physical: Decodable, Promptable {
     let body: String
     let height: String
@@ -76,25 +77,25 @@ struct Physical: Decodable, Promptable {
             }
             switch self {
             case .body:
-                return "Body is \(value)"
+                return "your body is \(value)"
             case .skin:
-                return "Skin is \(value)"
+                return "your skin is \(value)"
             case .limbs:
-                return "Limbs are \(value)"
+                return "your limbs are \(value)"
             case .head:
-                return "Head is \(value)"
+                return "your head is \(value)"
             case .eyes:
-                return "Eyes are \(value)"
+                return "your eyes are \(value)"
             case .nose:
-                return "Nose is \(value)"
+                return "your nose is \(value)"
             case .mouth:
-                return "Mouth is \(value)"
+                return "your mouth is \(value)"
             case .ears:
-                return "Ears are \(value)"
+                return "your ears are \(value)"
             case .hands:
-                return "Hands are \(value)"
+                return "your hands are \(value)"
             case .feet:
-                return "Feet are \(value)"
+                return "your feet are \(value)"
             }
         }
     }
