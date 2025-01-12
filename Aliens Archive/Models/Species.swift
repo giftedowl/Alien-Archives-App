@@ -14,7 +14,15 @@ struct Species: Decodable, Identifiable {
     let excerpt: String
     let link: String
     let featuredMedia: Int
-    let characteristics: Characteristics
+
+    let traits: PhysicalTraits
+    let capabilities: Capabilities
+
+    var activeTraits: [PhysicalTraits.CodingKeys] {
+        return PhysicalTraits.CodingKeys.allCases.compactMap { key in
+            return traits.value(for: key).isEmpty ? nil : key
+        }
+    }
 
     var speciesMedia: SpeciesMedia?
 
@@ -30,9 +38,11 @@ struct Species: Decodable, Identifiable {
         self.link = try container.decode(String.self, forKey: .link)
         self.featuredMedia = try container
             .decode(Int.self, forKey: .featuredMedia)
-        self.characteristics = try container
-            .decode(Characteristics.self, forKey: .characteristics)
-        print("Characteristics \(self.characteristics)")
+
+        self.traits = try container
+            .decode(PhysicalTraits.self, forKey: .acf)
+        self.capabilities = try container
+            .decode(Capabilities.self, forKey: .acf)
     }
 
     enum CodingKeys: String, CodingKey, Decodable {
@@ -41,12 +51,11 @@ struct Species: Decodable, Identifiable {
         case content
         case excerpt
         case link
+        case acf
         case featuredMedia = "featured_media"
-        case characteristics = "acf"
     }
 
     mutating func setMedia(media: SpeciesMedia) {
         self.speciesMedia = media
     }
 }
-

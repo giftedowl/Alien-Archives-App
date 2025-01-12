@@ -19,6 +19,7 @@ struct SpeciesDetailView: View {
                 if let image = viewModel.speciesImageData {
                     Image(uiImage: image)
                         .cornerRadius(20)
+                        .padding()
                 }
                 ScrollView {
                     VStack {
@@ -36,19 +37,13 @@ struct SpeciesDetailView: View {
                     .cornerRadius(10)
                     VStack(alignment: .leading) {
                         ForEach(
-                            Characteristics.CodingKeys.allCases,
+                            viewModel.species.activeTraits,
                             id:\.self
                         ) { attribute in
-                            let value = attribute.from(viewModel.species.characteristics)
-                            if value == "" {
-                                EmptyView()
-                            } else {
-                                Text("\(attribute.label): \(value)")
-                                    .padding(20)
-                                    .background(Theme.highlight.color.opacity(0.8))
-                                    .foregroundStyle(Theme.primary.color)
-                                    .cornerRadius(10)
-                            }
+                            PhysicalTraitsView(
+                                traits: viewModel.species.traits,
+                                attribute: attribute
+                            )
                         }
                     }
                 }
