@@ -26,7 +26,9 @@ final class SpeciesViewModel: ObservableObject {
                     type: [Species.self],
                     request: .species
             )
-        } catch {
+            print("Species: \(species)")
+        } catch let error {
+            print("Error Decoding Species: \(error)")
         }
     }
 }

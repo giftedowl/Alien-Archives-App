@@ -15,14 +15,9 @@ struct Species: Decodable, Identifiable {
     let link: String
     let featuredMedia: Int
 
-    let traits: PhysicalTraits
-    let capabilities: Capabilities
-
-    var activeTraits: [PhysicalTraits.CodingKeys] {
-        return PhysicalTraits.CodingKeys.allCases.compactMap { key in
-            return traits.value(for: key).isEmpty ? nil : key
-        }
-    }
+    let physical: Physical
+    let culture: Cultural
+    let personality: Personality
 
     var speciesMedia: SpeciesMedia?
 
@@ -39,10 +34,12 @@ struct Species: Decodable, Identifiable {
         self.featuredMedia = try container
             .decode(Int.self, forKey: .featuredMedia)
 
-        self.traits = try container
-            .decode(PhysicalTraits.self, forKey: .acf)
-        self.capabilities = try container
-            .decode(Capabilities.self, forKey: .acf)
+        self.physical = try container
+            .decode(Physical.self, forKey: .acf)
+        self.culture = try container
+            .decode(Cultural.self, forKey: .acf)
+        self.personality = try container
+            .decode(Personality.self, forKey: .acf)
     }
 
     enum CodingKeys: String, CodingKey, Decodable {

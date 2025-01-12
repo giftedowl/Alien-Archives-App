@@ -35,17 +35,6 @@ struct SpeciesDetailView: View {
                         Theme.background.color.opacity(0.65)
                     )
                     .cornerRadius(10)
-                    VStack(alignment: .leading) {
-                        ForEach(
-                            viewModel.species.activeTraits,
-                            id:\.self
-                        ) { attribute in
-                            PhysicalTraitsView(
-                                traits: viewModel.species.traits,
-                                attribute: attribute
-                            )
-                        }
-                    }
                 }
             }
             .onAppear {
