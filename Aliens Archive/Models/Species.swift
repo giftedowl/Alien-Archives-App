@@ -52,7 +52,7 @@ struct Species: Decodable, Identifiable {
         case featuredMedia = "featured_media"
     }
 
-    mutating func setMedia(media: SpeciesMedia) {
+    mutating func setMedia(_ media: SpeciesMedia) {
         self.speciesMedia = media
     }
 }

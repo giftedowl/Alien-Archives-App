@@ -38,11 +38,20 @@ struct SpeciesDetailView: View {
                         .cornerRadius(10)
                     }
                     .tabItem {
-                        Text("Info")
+                        Label {
+                            Text("Info")
+                        } icon: {
+                            Image(systemName: "person.fill")
+                        }
+
                     }
-                    ChatView()
+                    ChatView(viewModel: viewModel)
                         .tabItem {
-                            Text("Chat")
+                            Label {
+                                Text("Chat")
+                            } icon: {
+                                Image(systemName: "bubble.fill")
+                            }
                         }
                 }
             }

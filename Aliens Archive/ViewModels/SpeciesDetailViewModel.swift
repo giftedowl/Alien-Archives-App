@@ -9,12 +9,13 @@ import Foundation
 import SwiftUI
 
 class SpeciesDetailViewModel: ObservableObject {
-    
+
     @Published var error: Bool = false
-    @Published var speciesMedia: SpeciesMedia?
     @Published var speciesImageData: UIImage?
+    @Published var messages: [Message] = []
 
     var species: Species
+
     private let service = Services()
     
     init(species: Species) {
@@ -24,28 +25,51 @@ class SpeciesDetailViewModel: ObservableObject {
     @MainActor
     func fetchSpeciesMedia() async {
         do {
-            speciesMedia = try await service.fetchService(
+            let speciesMedia = try await service.fetchService(
                 type: SpeciesMedia.self,
                 request: .media(id: species.featuredMedia.description)
             )
+            species.setMedia(speciesMedia)
             await fetchSpeciesData()
-        } catch {
-            print("error")
+        } catch let error {
+            print("Fetch Species Media Error: \(error)")
         }
     }
 
     @MainActor
     func fetchSpeciesData() async {
-        guard let speciesMedia else {
+        guard let media = species.speciesMedia else {
             return
         }
         do {
             let imageData = try await service.fetchData(
-                request: .data(media: speciesMedia)
+                request: .data(media: media)
             )
             self.speciesImageData = UIImage(data: imageData)
-        } catch {
-            print("error")
+        } catch let error {
+            print("Fetch Species Data Error: \(error)")
+        }
+    }
+
+    @MainActor
+    func fetchAlienResponse(with: Species, message: String) async {
+        do {
+            let chatResponse = try await service.fetchService(
+                type: ChatGPTResponse.self,
+                request: .message(context: "You are an alien", message: message)
+            )
+            guard let response = chatResponse.choices.first?.message.content else {
+                messages.append(Message.error)
+                return
+            }
+            messages.append(
+                Message(text: response, isUser: false)
+            )
+        } catch let error {
+            messages.append(Message.error)
+            print("ChatGPT Error: \(error)")
         }
     }
 }
+
+

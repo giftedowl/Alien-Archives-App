@@ -11,6 +11,7 @@ enum ServiceType {
     case data(media: SpeciesMedia)
     case media(id: String)
     case species
+    case message(context: String, message: String)
 
     var urlRequest: URLRequest {
         let baseUrl = "https://alienarchive.flywheelsites.com/wp-json/wp/v2/"
@@ -22,11 +23,34 @@ enum ServiceType {
             urlString = "\(baseUrl)species"
         case .data(let media):
             urlString = media.media_details.sizes.medium.source_url
+        case .message(_, _):
+            urlString = "https://api.openai.com/v1/chat/completions"
         }
         let url = URL(
             string: urlString
         )!
-        return URLRequest(url: url)
+        var urlRequest = URLRequest(url: url)
+        addHeaders(request: &urlRequest)
+        return urlRequest
+    }
+
+    private func addHeaders(request: inout URLRequest) {
+        switch self {
+        case .message(let context, let message):
+            request.httpMethod = "POST"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("Bearer YOUR_API_KEY", forHTTPHeaderField: "Authorization")
+            let body: [String: Any] = [
+                "model": "gpt-4",
+                "messages": [
+                    ["role": "system", "content": context],
+                    ["role": "user", "content": message]
+                ]
+            ]
+            request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
+        default:
+            break
+        }
     }
 }
 

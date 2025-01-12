@@ -11,19 +11,25 @@ struct Message: Identifiable {
     let id = UUID()
     let text: String
     let isUser: Bool
+
+    static var error: Message {
+        .init(text: "Sorry, I don't understand.", isUser: false)
+    }
 }
 
 struct ChatView: View {
-    @State private var messages: [Message] = []
+
+    public let viewModel: SpeciesDetailViewModel
+
     @State private var userInput: String = ""
 
     var body: some View {
         VStack {
-            Text("Let's Chat")
+            Text("Chat with me")
                 .font(.subheadline)
                 .padding()
             ScrollView {
-                ForEach(messages) { message in
+                ForEach(viewModel.messages) { message in
                     HStack {
                         if message.isUser {
                             Spacer()
@@ -59,11 +65,20 @@ struct ChatView: View {
     }
 
     func sendMessage() {
+        guard !userInput.isEmpty else {
+            return
+        }
+
         let userMessage = Message(text: userInput, isUser: true)
-        messages.append(userMessage)
+        viewModel.messages.append(userMessage)
         userInput = ""
 
-        // Simulate API response
-//        fetchAlienResponse(for: userMessage.text)
+        Task {
+            await viewModel
+                .fetchAlienResponse(
+                    with: viewModel.species,
+                    message: userMessage.text
+                )
+        }
     }
 }
