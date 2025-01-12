@@ -21,20 +21,29 @@ struct SpeciesDetailView: View {
                         .cornerRadius(20)
                         .padding()
                 }
-                ScrollView {
-                    VStack {
-                        Text(viewModel.species.title)
-                            .font(.title)
-                            .foregroundColor(Theme.primary.color)
-                        Text(viewModel.species.content)
-                            .foregroundColor(Theme.text.color)
-                            .padding()
+                TabView {
+                    ScrollView {
+                        VStack {
+                            Text(viewModel.species.title)
+                                .font(.title)
+                                .foregroundColor(Theme.primary.color)
+                            Text(viewModel.species.content)
+                                .foregroundColor(Theme.text.color)
+                                .padding()
+                        }
+                        .padding()
+                        .background(
+                            Theme.background.color.opacity(0.65)
+                        )
+                        .cornerRadius(10)
                     }
-                    .padding()
-                    .background(
-                        Theme.background.color.opacity(0.65)
-                    )
-                    .cornerRadius(10)
+                    .tabItem {
+                        Text("Info")
+                    }
+                    ChatView()
+                        .tabItem {
+                            Text("Chat")
+                        }
                 }
             }
             .onAppear {

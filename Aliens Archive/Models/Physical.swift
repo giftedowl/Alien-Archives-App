@@ -7,7 +7,7 @@
 
 struct Physical: Decodable {
     let body: String
-    let size: String
+//    let height: String
     let skin: String
     let limbs: String
     let head: String
