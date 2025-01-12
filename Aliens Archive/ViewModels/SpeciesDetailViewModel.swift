@@ -12,7 +12,7 @@ class SpeciesDetailViewModel: ObservableObject {
 
     @Published var error: Bool = false
     @Published var speciesImageData: UIImage?
-    @Published var messages: [Message] = []
+    @Published var messages: [ChatMessage] = []
 
     var species: Species
 
@@ -59,14 +59,14 @@ class SpeciesDetailViewModel: ObservableObject {
                 request: .message(context: "You are an alien", message: message)
             )
             guard let response = chatResponse.choices.first?.message.content else {
-                messages.append(Message.error)
+                messages.append(ChatMessage.error)
                 return
             }
             messages.append(
-                Message(text: response, isUser: false)
+                ChatMessage(text: response, isUser: false)
             )
         } catch let error {
-            messages.append(Message.error)
+            messages.append(ChatMessage.error)
             print("ChatGPT Error: \(error)")
         }
     }

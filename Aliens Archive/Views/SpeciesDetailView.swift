@@ -30,6 +30,7 @@ struct SpeciesDetailView: View {
                             Text(viewModel.species.content)
                                 .foregroundColor(Theme.text.color)
                                 .padding()
+                            PromptView(species: viewModel.species)
                         }
                         .padding()
                         .background(

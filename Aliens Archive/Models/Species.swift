@@ -7,7 +7,17 @@
 
 import Foundation
 
-struct Species: Decodable, Identifiable {
+struct Species: Decodable, Identifiable, Promptable {
+    enum CodingKeys: String, CodingKey, Decodable {
+        case id
+        case title
+        case content
+        case excerpt
+        case link
+        case acf
+        case featuredMedia = "featured_media"
+    }
+
     let id: Int
     let title: String
     let content: String
@@ -31,8 +41,6 @@ struct Species: Decodable, Identifiable {
         let excerptRendered = try container.decode(Rendered.self, forKey: .excerpt)
         self.excerpt = excerptRendered.rendered.htmlDecoded
         self.link = try container.decode(String.self, forKey: .link)
-        self.featuredMedia = try container
-            .decode(Int.self, forKey: .featuredMedia)
 
         self.physical = try container
             .decode(Physical.self, forKey: .acf)
@@ -40,19 +48,16 @@ struct Species: Decodable, Identifiable {
             .decode(Cultural.self, forKey: .acf)
         self.personality = try container
             .decode(Personality.self, forKey: .acf)
-    }
 
-    enum CodingKeys: String, CodingKey, Decodable {
-        case id
-        case title
-        case content
-        case excerpt
-        case link
-        case acf
-        case featuredMedia = "featured_media"
+        self.featuredMedia = try container
+            .decode(Int.self, forKey: .featuredMedia)
     }
 
     mutating func setMedia(_ media: SpeciesMedia) {
         self.speciesMedia = media
+    }
+
+    var prompt: String {
+        return "You are \(title), \(excerpt). \(physical.prompt) \(culture.prompt) \(personality.prompt)."
     }
 }

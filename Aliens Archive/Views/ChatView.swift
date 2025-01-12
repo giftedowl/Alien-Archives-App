@@ -7,15 +7,6 @@
 
 import SwiftUI
 
-struct Message: Identifiable {
-    let id = UUID()
-    let text: String
-    let isUser: Bool
-
-    static var error: Message {
-        .init(text: "Sorry, I don't understand.", isUser: false)
-    }
-}
 
 struct ChatView: View {
 
@@ -69,7 +60,7 @@ struct ChatView: View {
             return
         }
 
-        let userMessage = Message(text: userInput, isUser: true)
+        let userMessage = ChatMessage(text: userInput, isUser: true)
         viewModel.messages.append(userMessage)
         userInput = ""
 
