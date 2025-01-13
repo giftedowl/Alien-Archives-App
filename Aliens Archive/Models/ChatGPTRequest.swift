@@ -10,3 +10,8 @@ struct ChatGPTRequest: Encodable {
     let model = "gpt-4"
     let messages: [ChatMessage]
 }
+
+enum ApiKeys: String {
+    case openAIKey = "GET YOUR OWN"
+}
+

@@ -39,8 +39,11 @@ enum ServiceType {
         case .message(let body):
             request.httpMethod = "POST"
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("Bearer YOUR_API_KEY", forHTTPHeaderField: "Authorization")
-            print("Body \(body)")
+            request
+                .addValue(
+                    "Bearer \(ApiKeys.openAIKey.rawValue)",
+                    forHTTPHeaderField: "Authorization"
+                )
             if let jsonBody = try? JSONEncoder().encode(body) {
                 request.httpBody = jsonBody
             }
@@ -51,7 +54,6 @@ enum ServiceType {
 }
 
 struct Services {
-
     func fetchServiceArray<T: Decodable>(
         type: [T.Type],
         request: ServiceType
@@ -85,3 +87,4 @@ struct Services {
         return data
     }
 }
+
