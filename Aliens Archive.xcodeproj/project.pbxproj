@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		522219482D38A08000C19865 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 522219472D38A08000C19865 /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		5222194A2D38A08000C19865 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 522219492D38A08000C19865 /* FirebaseCore */; };
+		5222194C2D38A08000C19865 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5222194B2D38A08000C19865 /* FirebaseCrashlytics */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		5237E32C2D22ED6F00684736 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -39,6 +45,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5222194C2D38A08000C19865 /* FirebaseCrashlytics in Frameworks */,
+				5222194A2D38A08000C19865 /* FirebaseCore in Frameworks */,
+				522219482D38A08000C19865 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +99,9 @@
 			);
 			name = "Aliens Archive";
 			packageProductDependencies = (
+				522219472D38A08000C19865 /* FirebaseAnalyticsWithoutAdIdSupport */,
+				522219492D38A08000C19865 /* FirebaseCore */,
+				5222194B2D38A08000C19865 /* FirebaseCrashlytics */,
 			);
 			productName = "Aliens Archive";
 			productReference = 5204AD302CE8FA30000ED86D /* Aliens Archive.app */;
@@ -146,6 +158,9 @@
 			);
 			mainGroup = 5204AD272CE8FA30000ED86D;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				522219462D38A08000C19865 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5204AD312CE8FA30000ED86D /* Products */;
 			projectDirPath = "";
@@ -334,13 +349,13 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.giftedowl.Aliens-Archive";
+				PRODUCT_BUNDLE_IDENTIFIER = com.giftedowl.cosmicchat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -363,13 +378,13 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.giftedowl.Aliens-Archive";
+				PRODUCT_BUNDLE_IDENTIFIER = com.giftedowl.cosmicchat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -446,6 +461,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		522219462D38A08000C19865 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.7.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		522219472D38A08000C19865 /* FirebaseAnalyticsWithoutAdIdSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 522219462D38A08000C19865 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+		522219492D38A08000C19865 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 522219462D38A08000C19865 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		5222194B2D38A08000C19865 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 522219462D38A08000C19865 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5204AD282CE8FA30000ED86D /* Project object */;
 }
