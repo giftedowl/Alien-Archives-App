@@ -16,15 +16,17 @@ struct ChatMessageView: View {
                 Spacer()
                 Text(message.content)
                     .padding()
-                    .background(Theme.background.color.opacity(0.7))
+                    .background(Theme.secondary.color.opacity(0.3))
                     .cornerRadius(10)
                     .foregroundColor(Theme.text.color)
+                    .font(.caption)
             } else if message.role == .assistant {
                 Text(message.content)
                     .padding()
                     .background(Theme.highlight.color.opacity(0.3))
                     .cornerRadius(10)
                     .foregroundColor(Theme.text.color)
+                    .font(.caption)
                 Spacer()
             } else {
                 EmptyView()

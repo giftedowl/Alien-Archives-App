@@ -27,6 +27,7 @@ struct SpeciesDetailView: View {
                             Text(viewModel.species.title)
                                 .font(.title)
                                 .foregroundColor(Theme.primary.color)
+                                .padding(.top)
                             Text(viewModel.species.content)
                                 .foregroundColor(Theme.text.color)
                                 .padding()
@@ -36,6 +37,7 @@ struct SpeciesDetailView: View {
                         )
                         .cornerRadius(10)
                     }
+                    .background(Color.clear)
                     .padding()
                     .tabItem {
                         Label {
@@ -54,8 +56,8 @@ struct SpeciesDetailView: View {
                             }
                         }
                 }
-                .background(Color.clear)
             }
+            .background(Color.clear)
             .onAppear {
                 Task {
                     await viewModel.fetchSpeciesMedia()

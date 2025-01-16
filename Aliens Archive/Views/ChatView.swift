@@ -10,7 +10,8 @@ import SwiftUI
 
 struct ChatView: View {
 
-    public let viewModel: SpeciesDetailViewModel
+    @ObservedObject
+    public var viewModel: SpeciesDetailViewModel
 
     @State private var userInput: String = ""
 
@@ -21,15 +22,12 @@ struct ChatView: View {
                 Text("Ask Me Anything")
                     .font(.headline)
                     .foregroundStyle(Theme.primary.color)
-                    .padding()
                 ScrollViewReader { scrollViewProxy in
                     ScrollView {
                         ForEach(viewModel.messages) { message in
                             ChatMessageView(message: message)
-                                .padding(.horizontal)
                         }
                     }
-                    .padding()
                     .onChange(of: viewModel.messages) { _ in
                         if let lastMessage = viewModel.messages.last {
                             scrollViewProxy
@@ -39,20 +37,22 @@ struct ChatView: View {
                 }
 
                 HStack {
-                    TextField("Type your message", text: $userInput)
+                    TextField("Ask me anything...", text: $userInput)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     Button(action: sendMessage) {
                         Text("Send")
+                            .padding()
+                            .cornerRadius(10)
                     }
-                    .padding()
+                    .background(Theme.highlight.color)
                 }
-                .padding()
             }
             .padding()
 
         }
     }
 
+    @MainActor
     func sendMessage() {
         guard !userInput.isEmpty else {
             return
