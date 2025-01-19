@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct SpeciesItem: View {
-    var species: Species
-    
+
+    let species: Species
+
     var body: some View {
         VStack(alignment: .leading) {
-            Text(species.title)
+            Text(species.name)
                 .font(.title)
                 .foregroundColor(Theme.primary.color)
             Text(species.excerpt)

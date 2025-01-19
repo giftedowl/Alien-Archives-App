@@ -8,20 +8,21 @@
 import Foundation
 import SwiftUI
 
-class SpeciesDetailViewModel: ObservableObject {
+class SpeciesDetailViewModel: ObservableObject, Observable, Toastable {
 
-    @Published var error: Bool = false
-    @Published var speciesImageData: UIImage?
     @Published var messages: [ChatMessage] = []
+    @Published var speciesImage: UIImage?
 
     var species: Species
+    var toast: ToastViewModel
 
     private let service = Services()
     
     init(species: Species) {
         self.species = species
-        print("Prompt: \(species.prompt)")
         self.messages = [ChatMessage(content: species.prompt, role: .system)]
+
+        self.toast = ToastViewModel()
     }
 
     @MainActor
@@ -33,8 +34,8 @@ class SpeciesDetailViewModel: ObservableObject {
             )
             species.setMedia(speciesMedia)
             await fetchSpeciesData()
-        } catch let error {
-            print("Fetch Species Media Error: \(error)")
+        } catch  {
+            toast.show(message: "Unable to load species media")
         }
     }
 
@@ -47,9 +48,9 @@ class SpeciesDetailViewModel: ObservableObject {
             let imageData = try await service.fetchData(
                 request: .data(media: media)
             )
-            self.speciesImageData = UIImage(data: imageData)
-        } catch let error {
-            print("Fetch Species Data Error: \(error)")
+            speciesImage = UIImage(data: imageData)
+        } catch {
+            toast.show(message: "Unable to load species image")
         }
     }
 
@@ -61,14 +62,24 @@ class SpeciesDetailViewModel: ObservableObject {
                 request: .message(request: ChatGPTRequest(messages: messages))
             )
             guard let response = chatResponse.choices.first?.message.content else {
-                print("ChatGPT Error: \(error)")
+                messages.append(
+                    ChatMessage(
+                        content: "Sorry, I'm having trouble with my service",
+                        role: .assistant
+                    )
+                )
                 return
             }
             messages.append(
                 ChatMessage(content: response, role: .assistant)
             )
-        } catch let error {
-            print("ChatGPT Error: \(error)")
+        } catch {
+            messages.append(
+                ChatMessage(
+                    content: "Sorry, I'm having trouble with my service",
+                    role: .assistant
+                )
+            )
         }
     }
 }

@@ -7,19 +7,19 @@
 
 import SwiftUI
 
-
 struct ChatView: View {
 
-    @ObservedObject
+    @EnvironmentObject
     public var viewModel: SpeciesDetailViewModel
 
-    @State private var userInput: String = ""
+    @State 
+    private var userInput: String = ""
 
     var body: some View {
         ZStack {
             Theme.background.color
             VStack {
-                Text("Ask Me Anything")
+                Text("Chat with \(viewModel.species.name)")
                     .font(.headline)
                     .foregroundStyle(Theme.primary.color)
                 ScrollViewReader { scrollViewProxy in

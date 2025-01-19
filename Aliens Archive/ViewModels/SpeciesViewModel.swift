@@ -7,13 +7,14 @@
 
 import Foundation
 
-final class SpeciesViewModel: ObservableObject {
+final class SpeciesViewModel: ObservableObject, Toastable {
 
     @Published var species: [Species] = []
-    @Published var error: Bool = false
-    private let service = Services()
+
+    var toast: ToastViewModel
 
     init() {
+        toast = ToastViewModel()
         Task {
             await fetchAllSpecies()
         }
@@ -22,13 +23,12 @@ final class SpeciesViewModel: ObservableObject {
     @MainActor
     func fetchAllSpecies() async {
         do {
-            species = try await service.fetchServiceArray(
+            species = try await Services().fetchServiceArray(
                     type: [Species.self],
                     request: .species
             )
-            print("Species: \(species)")
-        } catch let error {
-            print("Error Decoding Species: \(error)")
+        } catch {
+            toast.show(message: "Unable to load species list")
         }
     }
 }

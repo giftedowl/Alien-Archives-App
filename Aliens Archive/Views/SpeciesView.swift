@@ -14,19 +14,22 @@ struct SpeciesView: View {
 
     var body: some View {
         NavigationView {
-            List(viewModel.species) { item in
-                NavigationLink {
-                    SpeciesDetailView(
-                        viewModel: SpeciesDetailViewModel(
+            ZStack(alignment: .top) {
+                List(viewModel.species) { item in
+                    NavigationLink {
+                        SpeciesTabView(
+                            viewModel: SpeciesDetailViewModel(
+                                species: item
+                            )
+                        )
+                    } label: {
+                        SpeciesItem(
                             species: item
                         )
-                    )
-                } label: {
-                    SpeciesItem(
-                        species: item
-                    )
+                    }
+                    .listRowBackground(Theme.background.color)
                 }
-                .listRowBackground(Theme.background.color)
+                ToastView(toast: viewModel.toast)
             }
             .navigationTitle("Alien Species")
         }

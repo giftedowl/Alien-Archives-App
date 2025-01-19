@@ -8,27 +8,28 @@
 import SwiftUI
 
 struct SpeciesDetailView: View {
-    @StateObject var viewModel: SpeciesDetailViewModel
+
+    @EnvironmentObject
+    var viewModel: SpeciesDetailViewModel
 
     var body: some View {
-        ZStack {
-            Image("BackgroundImage")
-                .resizable()
-                .ignoresSafeArea()
-            VStack {
-                if let image = viewModel.speciesImageData {
-                    Image(uiImage: image)
-                        .cornerRadius(20)
-                        .padding()
-                }
-                TabView {
+            ZStack {
+                Image("BackgroundImage")
+                    .resizable()
+                    .ignoresSafeArea()
+                VStack {
+                    if let image = viewModel.speciesImage {
+                        Image(uiImage: image)
+                            .cornerRadius(20)
+                            .padding()
+                    }
                     ScrollView {
                         VStack {
-                            Text(viewModel.species.title)
+                            Text(viewModel.species.name)
                                 .font(.title)
                                 .foregroundColor(Theme.primary.color)
                                 .padding(.top)
-                            Text(viewModel.species.content)
+                            Text(viewModel.species.description)
                                 .foregroundColor(Theme.text.color)
                                 .padding()
                         }
@@ -39,30 +40,7 @@ struct SpeciesDetailView: View {
                     }
                     .background(Color.clear)
                     .padding()
-                    .tabItem {
-                        Label {
-                            Text("Info")
-                        } icon: {
-                            Image(systemName: "person.fill")
-                        }
-
-                    }
-                    ChatView(viewModel: viewModel)
-                        .tabItem {
-                            Label {
-                                Text("Chat")
-                            } icon: {
-                                Image(systemName: "bubble.fill")
-                            }
-                        }
                 }
             }
-            .background(Color.clear)
-            .onAppear {
-                Task {
-                    await viewModel.fetchSpeciesMedia()
-                }
-            }
-        }
     }
 }

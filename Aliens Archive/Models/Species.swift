@@ -5,13 +5,13 @@
 //  Created by John Lane on 11/17/24.
 //
 
-import Foundation
+import SwiftUI
 
 struct Species: Decodable, Identifiable, Promptable {
     enum CodingKeys: String, CodingKey, Decodable {
         case id
-        case title
-        case content
+        case name = "title"
+        case description = "content"
         case excerpt
         case link
         case acf
@@ -19,10 +19,11 @@ struct Species: Decodable, Identifiable, Promptable {
     }
 
     let id: Int
-    let title: String
-    let content: String
+    let name: String
+    let description: String
     let excerpt: String
     let link: String
+
     let featuredMedia: Int
 
     let physical: Physical
@@ -35,10 +36,13 @@ struct Species: Decodable, Identifiable, Promptable {
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(Int.self, forKey: .id)
-        let titleRendered = try container.decode(Rendered.self, forKey: .title)
-        self.title = titleRendered.rendered
-        let contentRendered = try container.decode(Rendered.self, forKey: .content)
-        self.content = contentRendered.rendered.htmlDecoded
+        let titleRendered = try container.decode(Rendered.self, forKey: .name)
+        self.name = titleRendered.rendered
+        let contentRendered = try container.decode(
+            Rendered.self,
+            forKey: .description
+        )
+        self.description = contentRendered.rendered.htmlDecoded
         let excerptRendered = try container.decode(Rendered.self, forKey: .excerpt)
         self.excerpt = excerptRendered.rendered.htmlDecoded
         self.link = try container.decode(String.self, forKey: .link)
@@ -61,6 +65,6 @@ struct Species: Decodable, Identifiable, Promptable {
     }
 
     var prompt: String {
-        return "You are \(title), \(excerpt). \(physical.prompt) \(culture.prompt) \(personality.prompt)."
+        return "You are \(name), \(excerpt). \(physical.prompt) \(culture.prompt) \(personality.prompt)."
     }
 }
