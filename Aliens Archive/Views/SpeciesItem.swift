@@ -9,14 +9,15 @@ import SwiftUI
 
 struct SpeciesItem: View {
 
-    let species: Species
+    @StateObject
+    var viewModel: SpeciesDetailViewModel
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text(species.name)
+            Text(viewModel.species.name)
                 .font(.title)
                 .foregroundColor(Theme.primary.color)
-            Text(species.excerpt)
+            Text(viewModel.species.excerpt)
                 .font(.subheadline)
                 .foregroundColor(Theme.text.color)
         }

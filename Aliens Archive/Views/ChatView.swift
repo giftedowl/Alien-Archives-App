@@ -19,7 +19,7 @@ struct ChatView: View {
         ZStack {
             Theme.background.color
             VStack {
-                Text("Chat with \(viewModel.species.name)")
+                Text("You are chatting with \(viewModel.species.name)")
                     .font(.headline)
                     .foregroundStyle(Theme.primary.color)
                 ScrollViewReader { scrollViewProxy in
@@ -35,7 +35,6 @@ struct ChatView: View {
                         }
                     }
                 }
-
                 HStack {
                     TextField("Ask me anything...", text: $userInput)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -61,16 +60,11 @@ struct ChatView: View {
         guard !userInput.isEmpty else {
             return
         }
-
-        let userMessage = ChatMessage(content: userInput, role: .user)
-        viewModel.messages.append(userMessage)
-        userInput = ""
-
+        let message = userInput
         Task {
             await viewModel
-                .fetchAlienResponse(
-                    with: viewModel.species
-                )
+                .send(message: message)
         }
+        userInput = ""
     }
 }

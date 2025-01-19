@@ -28,13 +28,14 @@ struct SpeciesDetailView: View {
                             Text(viewModel.species.name)
                                 .font(.title)
                                 .foregroundColor(Theme.primary.color)
+                                .bold()
                                 .padding(.top)
                             Text(viewModel.species.description)
                                 .foregroundColor(Theme.text.color)
                                 .padding()
                         }
                         .background(
-                            Theme.background.color.opacity(0.65)
+                            Theme.background.color.opacity(0.75)
                         )
                         .cornerRadius(10)
                     }

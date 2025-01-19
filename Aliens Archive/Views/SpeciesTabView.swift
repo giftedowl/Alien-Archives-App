@@ -22,7 +22,6 @@ struct SpeciesTabView: View {
                     } icon: {
                         Image(systemName: "person.fill")
                     }
-
                 }
             ChatView()
                 .environment(viewModel)

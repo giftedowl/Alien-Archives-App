@@ -8,7 +8,13 @@
 import Foundation
 import SwiftUI
 
-class SpeciesDetailViewModel: ObservableObject, Observable, Toastable {
+protocol Chattable {
+    var messages: [ChatMessage] {get set}
+
+    func send(message: String) async
+}
+
+class SpeciesDetailViewModel: ObservableObject, Observable, Toastable, Chattable {
 
     @Published var messages: [ChatMessage] = []
     @Published var speciesImage: UIImage?
@@ -17,7 +23,7 @@ class SpeciesDetailViewModel: ObservableObject, Observable, Toastable {
     var toast: ToastViewModel
 
     private let service = JsonService()
-    
+
     init(species: Species) {
         self.species = species
         self.messages = [ChatMessage(content: species.prompt, role: .system)]
@@ -55,12 +61,31 @@ class SpeciesDetailViewModel: ObservableObject, Observable, Toastable {
     }
 
     @MainActor
-    func fetchAlienResponse(with species: Species) async {
+    func send(message: String) async {
+
+        // Send User initiated message
+        messages.append(
+            ChatMessage(
+                content: message,
+                role: .user
+            )
+        )
+
+        // Prime with a loading state
+        messages.append(
+            ChatMessage(
+                content: "",
+                role: .assistant
+            )
+        )
+
         do {
             let chatResponse = try await service.fetchService(
                 type: ChatGPTResponse.self,
                 request: .message(request: ChatGPTRequest(messages: messages))
             )
+            // Remove loading state
+            messages.popLast()
             guard let response = chatResponse.choices.first?.message.content else {
                 messages.append(
                     ChatMessage(

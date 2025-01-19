@@ -24,7 +24,9 @@ struct SpeciesView: View {
                         )
                     } label: {
                         SpeciesItem(
-                            species: item
+                            viewModel: SpeciesDetailViewModel(
+                                species: item
+                            )
                         )
                     }
                     .listRowBackground(Theme.background.color)

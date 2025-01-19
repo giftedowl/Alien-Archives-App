@@ -10,6 +10,8 @@
 		522219482D38A08000C19865 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 522219472D38A08000C19865 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		5222194A2D38A08000C19865 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 522219492D38A08000C19865 /* FirebaseCore */; };
 		5222194C2D38A08000C19865 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5222194B2D38A08000C19865 /* FirebaseCrashlytics */; };
+		52FA82442D3D92CD0083EC5C /* LoaderUI in Frameworks */ = {isa = PBXBuildFile; productRef = 52FA82432D3D92CD0083EC5C /* LoaderUI */; };
+		52FA82462D3DA23D0083EC5C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52FA82452D3DA23D0083EC5C /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,6 +27,7 @@
 /* Begin PBXFileReference section */
 		5204AD302CE8FA30000ED86D /* Aliens Archive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Aliens Archive.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5237E3282D22ED6F00684736 /* Aliens Archive Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Aliens Archive Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		52FA82452D3DA23D0083EC5C /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -46,6 +49,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5222194C2D38A08000C19865 /* FirebaseCrashlytics in Frameworks */,
+				52FA82442D3D92CD0083EC5C /* LoaderUI in Frameworks */,
 				5222194A2D38A08000C19865 /* FirebaseCore in Frameworks */,
 				522219482D38A08000C19865 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 			);
@@ -64,6 +68,7 @@
 		5204AD272CE8FA30000ED86D = {
 			isa = PBXGroup;
 			children = (
+				52FA82452D3DA23D0083EC5C /* LaunchScreen.storyboard */,
 				5204AD322CE8FA30000ED86D /* Aliens Archive */,
 				5237E3292D22ED6F00684736 /* Aliens Archive Tests */,
 				5204AD312CE8FA30000ED86D /* Products */,
@@ -103,6 +108,7 @@
 				522219472D38A08000C19865 /* FirebaseAnalyticsWithoutAdIdSupport */,
 				522219492D38A08000C19865 /* FirebaseCore */,
 				5222194B2D38A08000C19865 /* FirebaseCrashlytics */,
+				52FA82432D3D92CD0083EC5C /* LoaderUI */,
 			);
 			productName = "Aliens Archive";
 			productReference = 5204AD302CE8FA30000ED86D /* Aliens Archive.app */;
@@ -161,6 +167,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				522219462D38A08000C19865 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				52FA82422D3D92CD0083EC5C /* XCRemoteSwiftPackageReference "LoaderUI" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5204AD312CE8FA30000ED86D /* Products */;
@@ -178,6 +185,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52FA82462D3DA23D0083EC5C /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,12 +379,12 @@
 				DEVELOPMENT_TEAM = 4BX834LPB9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Galaxify;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -400,12 +408,12 @@
 				DEVELOPMENT_TEAM = 4BX834LPB9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Galaxify;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -498,6 +506,14 @@
 				minimumVersion = 11.7.0;
 			};
 		};
+		52FA82422D3D92CD0083EC5C /* XCRemoteSwiftPackageReference "LoaderUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ninjaprox/LoaderUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -515,6 +531,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 522219462D38A08000C19865 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCrashlytics;
+		};
+		52FA82432D3D92CD0083EC5C /* LoaderUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 52FA82422D3D92CD0083EC5C /* XCRemoteSwiftPackageReference "LoaderUI" */;
+			productName = LoaderUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

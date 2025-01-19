@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import LoaderUI
 
 struct ChatMessageView: View {
 
@@ -37,12 +38,18 @@ struct ChatMessageView: View {
                             .font(.caption)
                     }
                 }
-                Text(message.content)
-                    .padding()
-                    .background(Theme.highlight.color.opacity(0.3))
-                    .cornerRadius(10)
-                    .foregroundColor(Theme.text.color)
-                    .font(.caption)
+                if message.content.isEmpty {
+                    BallBeat()
+                        .frame(width: 100)
+                        .foregroundStyle(Theme.highlight.color)
+                } else {
+                    Text(message.content)
+                        .padding()
+                        .background(Theme.highlight.color.opacity(0.3))
+                        .cornerRadius(10)
+                        .foregroundColor(Theme.text.color)
+                        .font(.caption)
+                }
                 Spacer()
             } else {
                 EmptyView()
