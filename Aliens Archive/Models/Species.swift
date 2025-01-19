@@ -13,7 +13,6 @@ struct Species: Decodable, Identifiable, Promptable {
         case name = "title"
         case description = "content"
         case excerpt
-        case link
         case acf
         case featuredMedia = "featured_media"
     }
@@ -22,7 +21,6 @@ struct Species: Decodable, Identifiable, Promptable {
     let name: String
     let description: String
     let excerpt: String
-    let link: String
 
     let featuredMedia: Int
 
@@ -45,7 +43,6 @@ struct Species: Decodable, Identifiable, Promptable {
         self.description = contentRendered.rendered.htmlDecoded
         let excerptRendered = try container.decode(Rendered.self, forKey: .excerpt)
         self.excerpt = excerptRendered.rendered.htmlDecoded
-        self.link = try container.decode(String.self, forKey: .link)
 
         self.physical = try container
             .decode(Physical.self, forKey: .acf)

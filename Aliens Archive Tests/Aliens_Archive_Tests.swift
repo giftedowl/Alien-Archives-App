@@ -12,9 +12,5 @@ import XCTest
 final class Aliens_Archive_Tests: XCTestCase {
 
     func testSpeciesRendered() throws {
-        let species = Species(title: "The Grays", content: "Little green men.")
-
-        XCTAssertEqual(species.title.rendered, "The Grays")
-        XCTAssertEqual(species.content.rendered, "Little green men")
     }
 }

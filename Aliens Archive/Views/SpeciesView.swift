@@ -10,7 +10,7 @@ import SwiftUI
 struct SpeciesView: View {
 
     @StateObject
-    private var viewModel = SpeciesViewModel()
+    private var viewModel = SpeciesViewModel(service: JsonService())
 
     var body: some View {
         NavigationView {

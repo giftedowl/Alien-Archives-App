@@ -16,7 +16,7 @@ class SpeciesDetailViewModel: ObservableObject, Observable, Toastable {
     var species: Species
     var toast: ToastViewModel
 
-    private let service = Services()
+    private let service = JsonService()
     
     init(species: Species) {
         self.species = species

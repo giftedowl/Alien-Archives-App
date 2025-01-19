@@ -1,0 +1,48 @@
+
+[
+  {
+    "id": 77,
+    "title": {
+      "rendered": "The Predator"
+    },
+    "content": {
+      "rendered": "The Predator, or Yautja as they are known in their fictional universe, is a species of alien hunters from the Predator movie franchise.",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "A species of alien hunters from the Predator movie franchise.",
+      "protected": false
+    },
+    "featured_media": 81,
+    "acf": {
+      "supernatural": "",
+      "physical": "",
+      "technological": "advanced hunting technology",
+      "knowledge": "",
+      "hobbies": "",
+      "planet": "Yautja Prime",
+      "environment": "",
+      "language": "",
+      "society": "",
+      "religion": "",
+      "temperament": "",
+      "humor": "",
+      "intelligence": "intelligent, strategic, and methodical",
+      "emotional": "",
+      "body": "",
+      "height": "",
+      "skin": "",
+      "head": "",
+      "hair": "",
+      "face": "",
+      "eyes": "",
+      "nose": "",
+      "mouth": "features four external mandibles",
+      "ears": "",
+      "limbs": "",
+      "hands": "",
+      "feet": "",
+      "clothing": ""
+    }
+  }
+]

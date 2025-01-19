@@ -13,7 +13,10 @@ final class SpeciesViewModel: ObservableObject, Toastable {
 
     var toast: ToastViewModel
 
-    init() {
+    let service: Serviceable
+
+    init(service: Serviceable) {
+        self.service = service
         toast = ToastViewModel()
         Task {
             await fetchAllSpecies()
@@ -23,7 +26,7 @@ final class SpeciesViewModel: ObservableObject, Toastable {
     @MainActor
     func fetchAllSpecies() async {
         do {
-            species = try await Services().fetchServiceArray(
+            species = try await service.fetchServiceArray(
                     type: [Species.self],
                     request: .species
             )
