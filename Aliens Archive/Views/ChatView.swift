@@ -39,12 +39,16 @@ struct ChatView: View {
                 HStack {
                     TextField("Ask me anything...", text: $userInput)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .border(Theme.primary.color, width: 2)
+                        .padding(10)
+                        .foregroundStyle(Theme.primary.color)
                     Button(action: sendMessage) {
                         Text("Send")
-                            .padding()
-                            .cornerRadius(10)
+                            .padding(10)
+                            .foregroundStyle(Theme.primary.color)
+                            .bold()
                     }
-                    .background(Theme.highlight.color)
+                    .border(Theme.primary.color, width: 2)
                 }
             }
             .padding()
